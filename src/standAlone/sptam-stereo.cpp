@@ -49,6 +49,7 @@
 
 #include "Timestamps.hpp"
 #include "utils/ProgramOptions.hpp"
+#include "utils/MapViewer.hpp"
 #include "FrameGenerator/FrameGeneratorFactory.hpp"
 
 #include "StereoImageFeatures.hpp"
@@ -305,6 +306,12 @@ int main(int argc, char* argv[])
                           frustum_near_plane_distance_, frustum_far_plane_distance_);
   #endif
 
+  // Create Map Viewer
+  constexpr int32_t mapWidth = 600;
+  constexpr int32_t mapHeight = 600;
+  MapViewer mapViewer(mapWidth, mapHeight);
+  mapViewer.setMap(sptamWrapper.GetMap());
+
   // TODO hardcoded rate in case of no timestamp. Parametrize.
   Timestamps timestamps = useTimestamps ? Timestamps(timestampsFile, imageBeginIndex) : Timestamps(0.1, imageBeginIndex);
 
@@ -362,6 +369,9 @@ int main(int argc, char* argv[])
       pointCloud.SetCameraPose( getCurrentCameraPose( motionModel ) );
 
     #endif // SHOW_POINT_CLOUD
+
+    // Run MapViewer
+    mapViewer.drawMap();
 
     // Get Next Frames
     hasNextFrame = frameGeneratorLeft->getNextFrame( imageLeft ) and frameGeneratorRight->getNextFrame( imageRight );

@@ -17,7 +17,7 @@ file(GLOB frameGeneratorFiles FrameGenerator/*.cpp)
 add_library(frameGenerator ${frameGeneratorFiles})
 target_link_libraries(frameGenerator ${OpenCV_LIBS})
 
-file(GLOB STANDALONE_SRCS StereoFeatureExtractor.cpp KITTIGroundTruth.cpp SptamWrapper.cpp utils/ProgramOptions.cpp Timestamps.cpp)
+file(GLOB STANDALONE_SRCS StereoFeatureExtractor.cpp KITTIGroundTruth.cpp SptamWrapper.cpp utils/ProgramOptions.cpp Timestamps.cpp utils/MapViewer.cpp)
 
 add_executable(sptam-stereo sptam-stereo.cpp ${STANDALONE_SRCS} ${SLAM_SRCS})
 target_link_libraries(sptam-stereo sptam frameGenerator ${X11_LIBRARIES} boost_program_options ${THREAD_LIBS})
