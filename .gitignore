@@ -92,3 +92,6 @@ thirdparty/*
 
 # Build
 build/*
+
+# VSCode
+.vscode/*
